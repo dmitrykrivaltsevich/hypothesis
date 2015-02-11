@@ -225,10 +225,12 @@ public class App {
 
 
     public static void main(String[] args) {
-        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11 * 11), 10);
+        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(7* 7), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
         Pair<Register, Register> factors = new App().checkAllHypothesises(targetProduct);
         if (factors != null) {
-            System.out.println(String.format("Found factors for %s:\n%s\n%s",
+            System.out.println(String.format("Found factors for %s :\n%s\n%s",
                     targetProduct,
                     factors.getFirst(),
                     factors.getSecond()));
@@ -241,24 +243,29 @@ public class App {
         Hypothesis hypothesis;
         while ((hypothesis = hypothesises.poll()) != null) {
             Pair<Register, Register> factors = hypothesis.getFactors();
+            Register factorsFirst = factors.getFirst();
+            Register factorsSecond = factors.getSecond();
             Integer cellOffsetToCheck = hypothesis.getCellOffsetToCheck();
 
 //            System.out.println(String.format("Check hypothesis: %s, %s, %s",
-//                    factors.getFirst(),
-//                    factors.getSecond(),
+//                    factorsFirst,
+//                    factorsSecond,
 //                    cellOffsetToCheck));
 
-            Register partialProduct = factors.getFirst().partialProduct(factors.getSecond(), cellOffsetToCheck);
+            Register partialProduct = factorsFirst.partialProduct(factorsSecond, cellOffsetToCheck);
             // todo: seems we don't need this extra-check
             if (!partialProduct.hasCell(cellOffsetToCheck)) {
                 continue;
             }
 
             if (targetProduct.getCell(cellOffsetToCheck).equals(partialProduct.getCell(cellOffsetToCheck))) {
-                if (targetProduct.getCapacity().equals(partialProduct.getCapacity())) {
+                if (targetProduct.getCapacity().equals(partialProduct.getCapacity())
+                        && targetProduct.equals(partialProduct)) {
                     return factors;
-                } else {
-                    Collection<Hypothesis> derivedHypothesises = createHypothesises(factors, cellOffsetToCheck + 1);
+                } else if (factorsFirst.getCapacity() + factorsSecond.getCapacity() < targetProduct.getCapacity()) {
+                    Collection<Hypothesis> derivedHypothesises = createHypothesises(
+                            factors,
+                            cellOffsetToCheck + 1);
                     hypothesises.addAll(derivedHypothesises);
                 }
             }
@@ -269,6 +276,11 @@ public class App {
     }
 
     private Collection<Hypothesis> createHypothesises(final Pair<Register, Register> factors, final int cellOffsetToCheck) {
+//        System.out.println(String.format("Creating derived hypothesis for: %s, %s, %s",
+//                factors.getFirst(),
+//                factors.getSecond(),
+//                cellOffsetToCheck - 1));
+
         // todo: dirty implementation - knows about radix = 10
         // todo: add proper collection initialization
         List<Hypothesis> newHypothesises = new ArrayList<Hypothesis>();

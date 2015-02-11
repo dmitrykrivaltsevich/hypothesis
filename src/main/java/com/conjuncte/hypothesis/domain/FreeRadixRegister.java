@@ -33,7 +33,11 @@ public class FreeRadixRegister
 
     @Override
     public Cell getCell(final Integer cellOffset) {
-        return createCell(number.toString(radix).charAt(cellOffset));
+        // not optimal here
+        String numberAsString = number.toString(radix);
+        return createCell(Integer.valueOf(numberAsString.substring(
+                numberAsString.length() - cellOffset - 1,
+                numberAsString.length() - cellOffset)));
     }
 
     @Override
@@ -45,7 +49,6 @@ public class FreeRadixRegister
     public Collection<Cell> getPossibleCellValues() {
         // todo: quick and dirty
         List<Cell> possibleValues = new ArrayList<Cell>(10);
-        possibleValues.add(createCell(0));
         possibleValues.add(createCell(1));
         possibleValues.add(createCell(2));
         possibleValues.add(createCell(3));
@@ -55,12 +58,22 @@ public class FreeRadixRegister
         possibleValues.add(createCell(7));
         possibleValues.add(createCell(8));
         possibleValues.add(createCell(9));
+        possibleValues.add(createCell(0));
         return possibleValues;
     }
 
     @Override
     public String toString() {
         return number.toString(radix);
+    }
+
+    @Override
+    public boolean equals(Object aThat) {
+        if (this == aThat) return true;
+        if (!(aThat instanceof FreeRadixRegister)) return false;
+        FreeRadixRegister that = (FreeRadixRegister) aThat;
+
+        return number.equals(that.number);
     }
 
     private Cell createCell(final int value) {
