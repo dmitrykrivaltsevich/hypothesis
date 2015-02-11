@@ -1,14 +1,8 @@
 package com.conjuncte.hypothesis;
 
-import com.conjuncte.hypothesis.domain.FreeRadixRegister;
-import com.conjuncte.hypothesis.domain.Hypothesis;
-import com.conjuncte.hypothesis.domain.Pair;
-import com.conjuncte.hypothesis.domain.Register;
+import com.conjuncte.hypothesis.domain.*;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Hello world!
@@ -268,8 +262,36 @@ public class App {
         return null;
     }
 
-    private Collection<Hypothesis> createHypothesises(Pair<Register, Register> factors, int cellOffsetToCheck) {
-        // todo: not implement yet
+    private Collection<Hypothesis> createHypothesises(final Pair<Register, Register> factors, final int cellOffsetToCheck) {
+        // todo: dirty implementation - knows about radix = 10
+        // todo: add proper collection initialization
+        List<Hypothesis> newHypothesises = new ArrayList<Hypothesis>();
+        for (final Cell cellFirst : factors.getFirst().getPossibleCellValues()) {
+            for (final Cell cellSecond : factors.getSecond().getPossibleCellValues()) {
+                newHypothesises.add(new Hypothesis() {
+                    @Override
+                    public Pair<Register, Register> getFactors() {
+                        return new Pair<Register, Register>() {
+                            @Override
+                            public Register getFirst() {
+                                return new FreeRadixRegister(cellFirst.getValue() + factors.getFirst().toString(), 10);
+                            }
+
+                            @Override
+                            public Register getSecond() {
+                                return new FreeRadixRegister(cellSecond.getValue() + factors.getSecond().toString(), 10);
+                            }
+                        };
+                    }
+
+                    @Override
+                    public Integer getCellOffsetToCheck() {
+                        return cellOffsetToCheck;
+                    }
+                });
+            }
+        }
+
         return Collections.emptyList();
     }
 }

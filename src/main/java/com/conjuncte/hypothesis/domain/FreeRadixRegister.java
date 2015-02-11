@@ -1,6 +1,9 @@
 package com.conjuncte.hypothesis.domain;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class FreeRadixRegister
         implements Register {
@@ -30,10 +33,41 @@ public class FreeRadixRegister
 
     @Override
     public Cell getCell(final Integer cellOffset) {
+        return createCell(number.toString(radix).charAt(cellOffset));
+    }
+
+    @Override
+    public Integer getCapacity() {
+        return number.toString(radix).length();
+    }
+
+    @Override
+    public Collection<Cell> getPossibleCellValues() {
+        // todo: quick and dirty
+        List<Cell> possibleValues = new ArrayList<Cell>(10);
+        possibleValues.add(createCell(0));
+        possibleValues.add(createCell(1));
+        possibleValues.add(createCell(2));
+        possibleValues.add(createCell(3));
+        possibleValues.add(createCell(4));
+        possibleValues.add(createCell(5));
+        possibleValues.add(createCell(6));
+        possibleValues.add(createCell(7));
+        possibleValues.add(createCell(8));
+        possibleValues.add(createCell(9));
+        return possibleValues;
+    }
+
+    @Override
+    public String toString() {
+        return number.toString(radix);
+    }
+
+    private Cell createCell(final int value) {
         return new Cell() {
             @Override
             public int getValue() {
-                return number.toString(radix).charAt(cellOffset);
+                return value;
             }
 
             @Override
@@ -45,15 +79,5 @@ public class FreeRadixRegister
                 return getValue() == that.getValue();
             }
         };
-    }
-
-    @Override
-    public Integer getCapacity() {
-        return number.toString(radix).length();
-    }
-
-    @Override
-    public String toString() {
-        return number.toString(radix);
     }
 }

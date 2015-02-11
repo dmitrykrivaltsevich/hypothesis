@@ -1,5 +1,7 @@
 package com.conjuncte.hypothesis.domain;
 
+import java.util.Collection;
+
 public interface Register {
 
     /**
@@ -13,7 +15,9 @@ public interface Register {
 
     Cell getCell(Integer cellOffset);
 
+    boolean hasCell(Integer cellOffset);
+
     Integer getCapacity();
 
-    boolean hasCell(Integer cellOffset);
+    Collection<Cell> getPossibleCellValues();
 }
