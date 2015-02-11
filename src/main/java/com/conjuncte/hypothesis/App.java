@@ -231,9 +231,13 @@ public class App {
 
 
     public static void main(String[] args) {
-        Pair<Register, Register> factors = new App().checkAllHypothesises(new FreeRadixRegister("49", 10));
+        FreeRadixRegister targetProduct = new FreeRadixRegister("49", 10);
+        Pair<Register, Register> factors = new App().checkAllHypothesises(targetProduct);
         if (factors != null) {
-            System.out.println(String.format("Found:\n%s\n%s", factors.getFirst(), factors.getSecond()));
+            System.out.println(String.format("Found factors for %s:\n%s\n%s",
+                    targetProduct,
+                    factors.getFirst(),
+                    factors.getSecond()));
         } else {
             System.out.println("Factors not found.");
         }
