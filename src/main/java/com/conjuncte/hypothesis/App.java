@@ -29,7 +29,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -50,7 +50,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -71,7 +71,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -92,7 +92,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -113,7 +113,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -134,7 +134,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -155,7 +155,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -176,7 +176,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -197,7 +197,7 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
         add(new Hypothesis() {
@@ -218,14 +218,14 @@ public class App {
 
             @Override
             public Integer getCellOffsetToCheck() {
-                return 1;
+                return 0;
             }
         });
     }};
 
 
     public static void main(String[] args) {
-        FreeRadixRegister targetProduct = new FreeRadixRegister("49", 10);
+        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11 * 11), 10);
         Pair<Register, Register> factors = new App().checkAllHypothesises(targetProduct);
         if (factors != null) {
             System.out.println(String.format("Found factors for %s:\n%s\n%s",
@@ -243,7 +243,13 @@ public class App {
             Pair<Register, Register> factors = hypothesis.getFactors();
             Integer cellOffsetToCheck = hypothesis.getCellOffsetToCheck();
 
+//            System.out.println(String.format("Check hypothesis: %s, %s, %s",
+//                    factors.getFirst(),
+//                    factors.getSecond(),
+//                    cellOffsetToCheck));
+
             Register partialProduct = factors.getFirst().partialProduct(factors.getSecond(), cellOffsetToCheck);
+            // todo: seems we don't need this extra-check
             if (!partialProduct.hasCell(cellOffsetToCheck)) {
                 continue;
             }
@@ -292,6 +298,6 @@ public class App {
             }
         }
 
-        return Collections.emptyList();
+        return newHypothesises;
     }
 }
