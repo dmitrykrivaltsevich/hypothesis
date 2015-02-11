@@ -225,12 +225,21 @@ public class App {
 
 
     public static void main(String[] args) {
-        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
+// todo: this one is slow
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(
+//                new BigInteger("122949829", 10).multiply(new BigInteger("122951513", 10)).toString(), 10);
+
+// todo: highlights bugs with 0s (no factos found)
+        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11903 * 11587), 10);
+
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11777 * 11587), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(4721 * 2129), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(7* 7), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
         Pair<Register, Register> factors = new App().checkAllHypothesises(targetProduct);
         if (factors != null) {
-            System.out.println(String.format("Found factors for %s :\n%s\n%s",
+            System.out.println(String.format("Found factors for %s:\n%s\n%s",
                     targetProduct,
                     factors.getFirst(),
                     factors.getSecond()));
