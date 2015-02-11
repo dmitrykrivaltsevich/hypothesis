@@ -48,7 +48,7 @@ public class FreeRadixRegister
     @Override
     public Collection<Cell> getPossibleCellValues() {
         // todo: quick and dirty
-        List<Cell> possibleValues = new ArrayList<Cell>(10);
+        List<Cell> possibleValues = new ArrayList<Cell>();
         possibleValues.add(createCell(1));
         possibleValues.add(createCell(2));
         possibleValues.add(createCell(3));
@@ -58,7 +58,8 @@ public class FreeRadixRegister
         possibleValues.add(createCell(7));
         possibleValues.add(createCell(8));
         possibleValues.add(createCell(9));
-        possibleValues.add(createCell(0));
+// todo: buggy
+//        possibleValues.add(createCell(0));
         return possibleValues;
     }
 

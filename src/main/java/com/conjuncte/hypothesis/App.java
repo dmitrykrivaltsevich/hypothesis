@@ -2,6 +2,7 @@ package com.conjuncte.hypothesis;
 
 import com.conjuncte.hypothesis.domain.*;
 
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -230,8 +231,10 @@ public class App {
 //                new BigInteger("122949829", 10).multiply(new BigInteger("122951513", 10)).toString(), 10);
 
 // todo: highlights bugs with 0s (no factos found)
-        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11903 * 11587), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11903 * 11587), 10);
 
+        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1182787", 10).multiply(new BigInteger("1571663", 10)).toString(), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("124351", 10).multiply(new BigInteger("146383", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11777 * 11587), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(4721 * 2129), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
@@ -239,8 +242,9 @@ public class App {
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
         Pair<Register, Register> factors = new App().checkAllHypothesises(targetProduct);
         if (factors != null) {
-            System.out.println(String.format("Found factors for %s:\n%s\n%s",
+            System.out.println(String.format("Found factors for %s (%d bits):\n%s\n%s",
                     targetProduct,
+                    new BigInteger(targetProduct.toString()).bitLength(),
                     factors.getFirst(),
                     factors.getSecond()));
         } else {
