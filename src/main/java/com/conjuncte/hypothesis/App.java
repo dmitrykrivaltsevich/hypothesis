@@ -1,4 +1,4 @@
-package com.conjuncte;
+package com.conjuncte.hypothesis;
 
 /**
  * Hello world!
