@@ -233,7 +233,8 @@ public class App {
 // todo: highlights bugs with 0s (no factos found)
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11903 * 11587), 10);
 
-        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1182787", 10).multiply(new BigInteger("1571663", 10)).toString(), 10);
+        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("12231257", 10).multiply(new BigInteger("12413887", 10)).toString(), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1182787", 10).multiply(new BigInteger("1571663", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("124351", 10).multiply(new BigInteger("146383", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11777 * 11587), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(4721 * 2129), 10);
@@ -299,27 +300,11 @@ public class App {
         List<Hypothesis> newHypothesises = new ArrayList<Hypothesis>();
         for (final Cell cellFirst : factors.getFirst().getPossibleCellValues()) {
             for (final Cell cellSecond : factors.getSecond().getPossibleCellValues()) {
-                newHypothesises.add(new Hypothesis() {
-                    @Override
-                    public Pair<Register, Register> getFactors() {
-                        return new Pair<Register, Register>() {
-                            @Override
-                            public Register getFirst() {
-                                return new FreeRadixRegister(cellFirst.getValue() + factors.getFirst().toString(), 10);
-                            }
-
-                            @Override
-                            public Register getSecond() {
-                                return new FreeRadixRegister(cellSecond.getValue() + factors.getSecond().toString(), 10);
-                            }
-                        };
-                    }
-
-                    @Override
-                    public Integer getCellOffsetToCheck() {
-                        return cellOffsetToCheck;
-                    }
-                });
+                newHypothesises.add(new HypothesisImpl(
+                        new FreeRadixRegister(cellFirst.getValue() + factors.getFirst().toString(), 10),
+                        new FreeRadixRegister(cellSecond.getValue() + factors.getSecond().toString(), 10),
+                        cellOffsetToCheck
+                ));
             }
         }
 
