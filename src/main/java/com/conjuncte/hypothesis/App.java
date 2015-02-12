@@ -18,20 +18,16 @@ public class App {
 
 
     public static void main(String[] args) {
-// todo: this one is slow
-//        FreeRadixRegister targetProduct = new FreeRadixRegister(
-//                new BigInteger("122949829", 10).multiply(new BigInteger("122951513", 10)).toString(), 10);
-
 // todo: highlights bugs with 0s (no factos found)
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11903 * 11587), 10);
 
-// todo: 8Gb not enough for this case - need lazy generator / queue
+        // todo: this one is slow
+        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("122949829", 10).multiply(new BigInteger("122951513", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("12231257", 10).multiply(new BigInteger("12413887", 10)).toString(), 10);
-
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1182787", 10).multiply(new BigInteger("1571663", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("124351", 10).multiply(new BigInteger("146383", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11777 * 11587), 10);
-        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(4721 * 2129), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(4721 * 2129), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(7* 7), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
@@ -58,10 +54,10 @@ public class App {
                 Register factorsSecond = factors.getSecond();
                 Integer cellOffsetToCheck = hypothesis.getCellOffsetToCheck();
 
-//            System.out.println(String.format("Check hypothesis: %s, %s, %s",
-//                    factorsFirst,
-//                    factorsSecond,
-//                    cellOffsetToCheck));
+                System.out.println(String.format("Check hypothesis: %s, %s, %s",
+                        factorsFirst,
+                        factorsSecond,
+                        cellOffsetToCheck));
 
                 Register partialProduct = factorsFirst.partialProduct(factorsSecond, cellOffsetToCheck);
                 // todo: seems we don't need this extra-check
