@@ -26,4 +26,9 @@ public class InitialHypothesisStream
 
         return hypothesis;
     }
+
+    @Override
+    public int compareTo(Stream<Hypothesis> stream) {
+        return 1;
+    }
 }

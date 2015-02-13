@@ -4,7 +4,9 @@ import com.conjuncte.hypothesis.domain.*;
 
 import java.io.PrintStream;
 import java.math.BigInteger;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
@@ -13,7 +15,15 @@ import java.util.Queue;
 public class App {
 
     // todo: add initial hypothesises
-    private Queue<Stream<Hypothesis>> hypothesises = new LinkedList<Stream<Hypothesis>>() {{
+    private Queue<Stream<Hypothesis>> hypothesises = new PriorityQueue<Stream<Hypothesis>>(
+            1000000,
+            new Comparator<Stream<Hypothesis>>() {
+                @Override
+                public int compare(Stream<Hypothesis> streamOne, Stream<Hypothesis> streamTwo) {
+                    return -streamOne.compareTo(streamTwo);
+                }
+            }
+    ) {{
         add(new InitialHypothesisStream());
     }};
 
@@ -30,8 +40,8 @@ public class App {
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11777 * 11587), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(4721 * 2129), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
-//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(7* 7), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(7* 7), 10);
         App application = new App();
         StateMonitor monitor = new QueueStateMonitor(application.getHypothesises(), 10, System.out).start();
 

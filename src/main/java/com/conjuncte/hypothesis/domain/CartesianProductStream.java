@@ -50,4 +50,10 @@ public class CartesianProductStream
 
         return hypothesis;
     }
+
+    @Override
+    public int compareTo(Stream<Hypothesis> stream) {
+        CartesianProductStream aThat = (CartesianProductStream) stream;
+        return Integer.valueOf(cellOffset).compareTo(aThat.cellOffset);
+    }
 }
