@@ -2,6 +2,7 @@ package com.conjuncte.hypothesis;
 
 import com.conjuncte.hypothesis.domain.*;
 
+import java.io.PrintStream;
 import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -21,7 +22,7 @@ public class App {
 // todo: highlights bugs with 0s (no factos found)
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11903 * 11587), 10);
 
-        // todo: this one is slow
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1965478943", 10).multiply(new BigInteger("6985321517", 10)).toString(), 10);
         FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("122949829", 10).multiply(new BigInteger("122951513", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("12231257", 10).multiply(new BigInteger("12413887", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1182787", 10).multiply(new BigInteger("1571663", 10)).toString(), 10);
@@ -31,7 +32,10 @@ public class App {
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(7* 7), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
-        Pair<Register, Register> factors = new App().checkAllHypothesises(targetProduct);
+        App application = new App();
+        StateMonitor monitor = new QueueStateMonitor(application.getHypothesises(), 10, System.out).start();
+
+        Pair<Register, Register> factors = application.checkAllHypothesises(targetProduct);
         if (factors != null) {
             System.out.println(String.format("Found factors for %s (%d bits):\n%s\n%s",
                     targetProduct,
@@ -41,6 +45,7 @@ public class App {
         } else {
             System.out.println("Factors not found.");
         }
+        monitor.stop();
     }
 
     private Pair<Register, Register> checkAllHypothesises(Register targetProduct) {
@@ -53,11 +58,6 @@ public class App {
                 Register factorsFirst = factors.getFirst();
                 Register factorsSecond = factors.getSecond();
                 Integer cellOffsetToCheck = hypothesis.getCellOffsetToCheck();
-
-                System.out.println(String.format("Check hypothesis: %s, %s, %s",
-                        factorsFirst,
-                        factorsSecond,
-                        cellOffsetToCheck));
 
                 Register partialProduct = factorsFirst.partialProduct(factorsSecond, cellOffsetToCheck);
                 // todo: seems we don't need this extra-check
@@ -81,5 +81,62 @@ public class App {
 
         // todo: add guava optional
         return null;
+    }
+
+    public Queue<Stream<Hypothesis>> getHypothesises() {
+        return hypothesises;
+    }
+
+    private interface StateMonitor {
+        StateMonitor start();
+
+        void stop();
+    }
+
+    private static class QueueStateMonitor
+            implements StateMonitor {
+
+        private final Queue<Stream<Hypothesis>> queue;
+        private final int sleepInSeconds;
+        private final PrintStream out;
+
+        private final Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean isInterrupted = false;
+                while (!isInterrupted) {
+                    try {
+                        out.println(String.format("Hypothesises to check: %d", queue.size()));
+                        Thread.sleep(sleepInSeconds * 1000);
+                    } catch (InterruptedException e) {
+                        isInterrupted = true;
+                        System.out.println("Monitor is stopped.");
+                    }
+                }
+            }
+        });
+
+        QueueStateMonitor(Queue<Stream<Hypothesis>> queue, int sleepInSeconds, PrintStream out) {
+            assert queue != null;
+            assert sleepInSeconds > 0;
+            assert out != null;
+
+            this.queue = queue;
+            this.sleepInSeconds = sleepInSeconds;
+            this.out = out;
+        }
+
+        @Override
+        public StateMonitor start() {
+            thread.start();
+            System.out.println("Monitor started.");
+            return this;
+        }
+
+        @Override
+        public void stop() {
+            System.out.println("Going to stop monitor.");
+            thread.interrupt();
+        }
     }
 }
