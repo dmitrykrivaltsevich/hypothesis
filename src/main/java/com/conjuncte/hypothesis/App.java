@@ -9,14 +9,17 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-/**
- * Hello world!
- */
+// todo: sort streams by "randomness" of digits in hypothesises
+// todo: fix 0 error
+// todo: add auto storing
+// todo: move hypothesises to repository
+// todo: make better package structure
+// todo: apply multi-threading
 public class App {
 
     // todo: add initial hypothesises
     private Queue<Stream<Hypothesis>> hypothesises = new PriorityQueue<Stream<Hypothesis>>(
-            1000000,
+            100,
             new Comparator<Stream<Hypothesis>>() {
                 @Override
                 public int compare(Stream<Hypothesis> streamOne, Stream<Hypothesis> streamTwo) {
@@ -32,8 +35,9 @@ public class App {
 // todo: highlights bugs with 0s (no factos found)
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11903 * 11587), 10);
 
+        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("41893284683", 10).multiply(new BigInteger("31893284777", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1965478943", 10).multiply(new BigInteger("6985321517", 10)).toString(), 10);
-        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("122949829", 10).multiply(new BigInteger("122951513", 10)).toString(), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("122949829", 10).multiply(new BigInteger("122951513", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("12231257", 10).multiply(new BigInteger("12413887", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1182787", 10).multiply(new BigInteger("1571663", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("124351", 10).multiply(new BigInteger("146383", 10)).toString(), 10);
@@ -42,6 +46,10 @@ public class App {
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(7* 7), 10);
+        System.out.println(String.format("Going to factor: %s (%d bits)",
+                targetProduct.toString(),
+                new BigInteger(targetProduct.toString()).bitLength()));
+
         App application = new App();
         StateMonitor monitor = new QueueStateMonitor(application.getHypothesises(), 10, System.out).start();
 
