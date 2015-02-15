@@ -14,6 +14,7 @@ import java.util.Queue;
 // todo: move hypothesises to repository
 // todo: make better package structure
 // todo: apply multi-threading
+// todo: use arrays of cells inside register and immutable cell prototypes - will improve memory consumption
 public class App {
 
     // todo: add initial hypothesises
