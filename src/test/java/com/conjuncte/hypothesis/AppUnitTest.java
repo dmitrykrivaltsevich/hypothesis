@@ -28,4 +28,13 @@ public class AppUnitTest {
         assertThat(factors.getFirst().toString(), equalTo("11"));
         assertThat(factors.getSecond().toString(), equalTo("11"));
     }
+
+    @Test
+    public void testCanFindFactorsWithZeroDigits() throws Exception {
+        Pair<Register, Register> factors = new App().checkAllHypothesises(new FreeRadixRegister("10201", 10));
+
+        assertThat(factors, notNullValue());
+        assertThat(factors.getFirst().toString(), equalTo("101"));
+        assertThat(factors.getSecond().toString(), equalTo("101"));
+    }
 }

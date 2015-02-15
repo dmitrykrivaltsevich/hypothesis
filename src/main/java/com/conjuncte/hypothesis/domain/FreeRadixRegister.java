@@ -8,8 +8,11 @@ import java.util.List;
 public class FreeRadixRegister
         implements Register {
 
+    private static final String ZERO = "0";
+
     private final BigInteger number;
     private final int radix;
+    private final int leadingZeros;
 
     public FreeRadixRegister(String number, int radix) {
         assert number != null;
@@ -17,25 +20,28 @@ public class FreeRadixRegister
 
         this.number = new BigInteger(number, radix);
         this.radix = radix;
+        this.leadingZeros = number.length() - number.replaceFirst("^0+", "").length();
     }
 
     @Override
     public Register partialProduct(Register target, Integer cellOffset) {
         // todo: dirty hack. don't want to implement partial product for now
+        // todo: cast to FreeRadixRegister -- design issue in any case
         BigInteger product = karatsuba(number, ((FreeRadixRegister) target).number);
-//        BigInteger product = number.multiply(((FreeRadixRegister) target).number);
-        return new FreeRadixRegister(product.toString(), radix);
+        return new FreeRadixRegister(
+                String.format("%1$" + toString().length() + "s", product.toString()).replace(" ", ZERO),
+                radix);
     }
 
     @Override
     public boolean hasCell(Integer cellOffset) {
-        return number.toString(radix).length() > cellOffset;
+        return toString().length() > cellOffset;
     }
 
     @Override
     public Cell getCell(final Integer cellOffset) {
         // not optimal here
-        String numberAsString = number.toString(radix);
+        String numberAsString = toString();
         return createCell(Integer.valueOf(numberAsString.substring(
                 numberAsString.length() - cellOffset - 1,
                 numberAsString.length() - cellOffset)));
@@ -43,7 +49,7 @@ public class FreeRadixRegister
 
     @Override
     public Integer getCapacity() {
-        return number.toString(radix).length();
+        return toString().length();
     }
 
     @Override
@@ -59,14 +65,14 @@ public class FreeRadixRegister
         possibleValues.add(createCell(7));
         possibleValues.add(createCell(8));
         possibleValues.add(createCell(9));
-// todo: buggy
-//        possibleValues.add(createCell(0));
+        possibleValues.add(createCell(0));
         return possibleValues;
     }
 
     @Override
     public String toString() {
-        return number.toString(radix);
+        String numberAsString = number.toString(radix);
+        return String.format("%1$" + (leadingZeros + numberAsString.length()) + "s", numberAsString).replace(" ", ZERO);
     }
 
     @Override

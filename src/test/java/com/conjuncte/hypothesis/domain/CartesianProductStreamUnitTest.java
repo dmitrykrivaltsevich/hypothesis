@@ -37,6 +37,6 @@ public class CartesianProductStreamUnitTest {
         }
 
         // Then
-        assertEquals(162, registers.size());
+        assertEquals(200, registers.size());
     }
 }

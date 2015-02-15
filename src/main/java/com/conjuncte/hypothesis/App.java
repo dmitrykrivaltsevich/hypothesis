@@ -77,9 +77,10 @@ public class App {
 
                 Register partialProduct = factorsFirst.partialProduct(factorsSecond, cellOffsetToCheck);
                 // todo: seems we don't need this extra-check
-                if (!partialProduct.hasCell(cellOffsetToCheck)) {
-                    continue;
-                }
+//                if (!partialProduct.hasCell(cellOffsetToCheck)) {
+//                    continue;
+//                }
+
 
                 if (targetProduct.getCell(cellOffsetToCheck).equals(partialProduct.getCell(cellOffsetToCheck))) {
                     if (targetProduct.getCapacity().equals(partialProduct.getCapacity())
