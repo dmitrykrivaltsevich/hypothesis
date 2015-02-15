@@ -45,7 +45,6 @@ public class App {
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(4721 * 2129), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
-//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(7* 7), 10);
         System.out.println(String.format("Going to factor: %s (%d bits)",
                 targetProduct.toString(),
                 new BigInteger(targetProduct.toString()).bitLength()));
@@ -66,7 +65,7 @@ public class App {
         monitor.stop();
     }
 
-    private Pair<Register, Register> checkAllHypothesises(Register targetProduct) {
+    public Pair<Register, Register> checkAllHypothesises(Register targetProduct) {
         Stream<Hypothesis> hypothesisStream;
         while ((hypothesisStream = hypothesises.poll()) != null) {
             while (hypothesisStream.hasNext()) {
