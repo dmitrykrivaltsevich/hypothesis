@@ -15,8 +15,6 @@ public interface Register {
 
     Cell getCell(Integer cellOffset);
 
-    boolean hasCell(Integer cellOffset);
-
     Integer getCapacity();
 
     Collection<Cell> getPossibleCellValues();

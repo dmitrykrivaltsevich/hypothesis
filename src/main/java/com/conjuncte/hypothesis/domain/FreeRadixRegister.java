@@ -34,11 +34,6 @@ public class FreeRadixRegister
     }
 
     @Override
-    public boolean hasCell(Integer cellOffset) {
-        return toString().length() > cellOffset;
-    }
-
-    @Override
     public Cell getCell(final Integer cellOffset) {
         // not optimal here
         String numberAsString = toString();
