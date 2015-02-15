@@ -44,7 +44,6 @@ public class App {
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11777 * 11587), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(4721 * 2129), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(523 * 541), 10);
-//        FreeRadixRegister targetProduct = new FreeRadixRegister(String.valueOf(11* 11), 10);
         System.out.println(String.format("Going to factor: %s (%d bits)",
                 targetProduct.toString(),
                 new BigInteger(targetProduct.toString()).bitLength()));

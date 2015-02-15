@@ -12,11 +12,20 @@ import static org.junit.Assert.assertThat;
 public class AppUnitTest {
 
     @Test
-    public void testCanFindOneDigitFactorNumbers() {
+    public void testCanFindOneDigitFactors() {
         Pair<Register, Register> factors = new App().checkAllHypothesises(new FreeRadixRegister("49", 10));
 
         assertThat(factors, notNullValue());
         assertThat(factors.getFirst().toString(), equalTo("7"));
         assertThat(factors.getSecond().toString(), equalTo("7"));
+    }
+
+    @Test
+    public void testCanFindTwoDigitsFactors() throws Exception {
+        Pair<Register, Register> factors = new App().checkAllHypothesises(new FreeRadixRegister("121", 10));
+
+        assertThat(factors, notNullValue());
+        assertThat(factors.getFirst().toString(), equalTo("11"));
+        assertThat(factors.getSecond().toString(), equalTo("11"));
     }
 }
