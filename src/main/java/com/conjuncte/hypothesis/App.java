@@ -32,7 +32,8 @@ public class App {
 
 
     public static void main(String[] args) {
-        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("41893284683", 10).multiply(new BigInteger("31893284777", 10)).toString(), 10);
+        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("901746392047", 10).multiply(new BigInteger("873610947299", 10)).toString(), 10);
+//        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("41893284683", 10).multiply(new BigInteger("31893284777", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("1965478943", 10).multiply(new BigInteger("6985321517", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("122949829", 10).multiply(new BigInteger("122951513", 10)).toString(), 10);
 //        FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("12231257", 10).multiply(new BigInteger("12413887", 10)).toString(), 10);
