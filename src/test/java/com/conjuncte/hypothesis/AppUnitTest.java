@@ -1,7 +1,7 @@
 package com.conjuncte.hypothesis;
 
 import com.conjuncte.hypothesis.domain.FreeRadixRegister;
-import com.conjuncte.hypothesis.domain.Pair;
+import com.conjuncte.hypothesis.container.Pair;
 import com.conjuncte.hypothesis.domain.Register;
 import org.junit.Test;
 

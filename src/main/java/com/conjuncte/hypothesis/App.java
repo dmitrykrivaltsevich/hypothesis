@@ -1,11 +1,14 @@
 package com.conjuncte.hypothesis;
 
+import com.conjuncte.hypothesis.container.CartesianProductStream;
+import com.conjuncte.hypothesis.container.InitialHypothesisStream;
+import com.conjuncte.hypothesis.container.Pair;
+import com.conjuncte.hypothesis.container.Stream;
 import com.conjuncte.hypothesis.domain.*;
 
 import java.io.PrintStream;
 import java.math.BigInteger;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 

@@ -1,5 +1,8 @@
-package com.conjuncte.hypothesis.domain;
+package com.conjuncte.hypothesis.container;
 
+import com.conjuncte.hypothesis.domain.FreeRadixRegister;
+import com.conjuncte.hypothesis.domain.Hypothesis;
+import com.conjuncte.hypothesis.domain.Register;
 import org.junit.Test;
 
 import java.util.ArrayList;

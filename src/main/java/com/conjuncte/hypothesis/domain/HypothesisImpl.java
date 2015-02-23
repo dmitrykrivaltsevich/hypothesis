@@ -1,5 +1,7 @@
 package com.conjuncte.hypothesis.domain;
 
+import com.conjuncte.hypothesis.container.Pair;
+
 public class HypothesisImpl
         implements Hypothesis {
 

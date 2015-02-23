@@ -1,5 +1,10 @@
-package com.conjuncte.hypothesis.domain;
+package com.conjuncte.hypothesis.container;
 
+import com.conjuncte.hypothesis.container.InitialHypothesisStream;
+import com.conjuncte.hypothesis.container.Stream;
+import com.conjuncte.hypothesis.domain.FreeRadixRegister;
+import com.conjuncte.hypothesis.domain.Hypothesis;
+import com.conjuncte.hypothesis.domain.Register;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 

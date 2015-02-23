@@ -1,4 +1,8 @@
-package com.conjuncte.hypothesis.domain;
+package com.conjuncte.hypothesis.container;
+
+import com.conjuncte.hypothesis.domain.FreeRadixRegister;
+import com.conjuncte.hypothesis.domain.Hypothesis;
+import com.conjuncte.hypothesis.domain.HypothesisImpl;
 
 public class InitialHypothesisStream
         implements Stream<Hypothesis> {

@@ -1,4 +1,4 @@
-package com.conjuncte.hypothesis.domain;
+package com.conjuncte.hypothesis.container;
 
 public interface Stream<T>
         extends Comparable<Stream<T>> {

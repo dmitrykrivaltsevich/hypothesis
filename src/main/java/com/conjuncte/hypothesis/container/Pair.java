@@ -1,4 +1,4 @@
-package com.conjuncte.hypothesis.domain;
+package com.conjuncte.hypothesis.container;
 
 public interface Pair<F, S> {
     F getFirst();
