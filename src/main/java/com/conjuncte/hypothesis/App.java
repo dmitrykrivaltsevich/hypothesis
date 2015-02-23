@@ -14,7 +14,6 @@ import java.math.BigInteger;
 
 // todo: sort streams by "randomness" of digits in hypothesises
 // todo: add auto storing
-// todo: move hypothesises to repository
 // todo: make better package structure
 // todo: apply multi-threading
 // todo: use arrays of cells inside register and immutable cell prototypes - will improve memory consumption
