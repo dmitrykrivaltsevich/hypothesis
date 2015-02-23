@@ -30,20 +30,37 @@ public class LocalRepository
 
     @Override
     public boolean isEmpty() {
-        if (currentStream == null || !currentStream.hasNext()) {
-            currentStream = hypothesises.poll();
-        }
+        initCurrentStream();
         return currentStream != null && currentStream.hasNext();
     }
 
     @Nonnull
     @Override
     public Hypothesis get() {
-        return null;
+        initCurrentStream();
+        assert currentStream != null;
+        assert currentStream.hasNext();
+
+        Hypothesis hypothesis = currentStream.next();
+
+        assert hypothesis != null;
+        return hypothesis;
     }
 
     @Override
-    public void add(@Nonnull Hypothesis data) {
+    public void add(@Nonnull Stream<Hypothesis> stream) {
+        assert stream != null;
+        hypothesises.add(stream);
+    }
 
+    @Override
+    public int size() {
+        return hypothesises.size();
+    }
+
+    private void initCurrentStream() {
+        if (currentStream == null || !currentStream.hasNext()) {
+            currentStream = hypothesises.poll();
+        }
     }
 }
