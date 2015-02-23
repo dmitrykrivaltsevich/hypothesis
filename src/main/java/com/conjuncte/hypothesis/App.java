@@ -20,6 +20,7 @@ import java.math.BigInteger;
 public class App {
 
     private Repository<Hypothesis> hypothesisRepository = new LocalRepository();
+    private Pair<Register, Register> latestFactors;
 
     public static void main(String[] args) {
         FreeRadixRegister targetProduct = new FreeRadixRegister(new BigInteger("901746392047", 10).multiply(new BigInteger("873610947299", 10)).toString(), 10);
@@ -56,6 +57,7 @@ public class App {
         while (!hypothesisRepository.isEmpty()) {
             Hypothesis hypothesis = hypothesisRepository.get();
 
+            latestFactors = hypothesis.getFactors();
             Pair<Register, Register> factors = hypothesis.getFactors();
             Register factorsFirst = factors.getFirst();
             Register factorsSecond = factors.getSecond();
@@ -84,6 +86,10 @@ public class App {
         return hypothesisRepository.size();
     }
 
+    public Pair<Register, Register> getLatestFactors() {
+        return latestFactors;
+    }
+
     private interface StateMonitor {
         StateMonitor start();
 
@@ -92,6 +98,8 @@ public class App {
 
     private static class QueueStateMonitor
             implements StateMonitor {
+
+        private final int MILLISECONDS_IN_SECOND = 1000;
 
         private final App app;
         private final int sleepInSeconds;
@@ -103,8 +111,12 @@ public class App {
                 boolean isInterrupted = false;
                 while (!isInterrupted) {
                     try {
-                        out.println(String.format("Hypothesises to check: %d", app.getNumberOfHypothesisesToCheck()));
-                        Thread.sleep(sleepInSeconds * 1000);
+                        Thread.sleep(sleepInSeconds * MILLISECONDS_IN_SECOND);
+                        out.println(String.format(
+                                "Hypothesises to check: %d. Current: (%s, %s)",
+                                app.getNumberOfHypothesisesToCheck(),
+                                app.getLatestFactors().getFirst(),
+                                app.getLatestFactors().getSecond()));
                     } catch (InterruptedException e) {
                         isInterrupted = true;
                         System.out.println("Monitor is stopped.");
