@@ -31,7 +31,7 @@ public class LocalRepository
     @Override
     public boolean isEmpty() {
         initCurrentStream();
-        return currentStream != null && currentStream.hasNext();
+        return currentStream == null || !currentStream.hasNext();
     }
 
     @Nonnull

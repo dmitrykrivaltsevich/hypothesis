@@ -4,14 +4,14 @@ import com.conjuncte.hypothesis.container.InitialHypothesisStream;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public class LocalRepositoryUnitTest {
 
     @Test
     public void testIsEmpty() throws Exception {
-        assertTrue(new LocalRepository().isEmpty());
+        assertFalse(new LocalRepository().isEmpty());
     }
 
     @Test
