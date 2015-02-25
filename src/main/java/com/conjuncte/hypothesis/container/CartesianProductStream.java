@@ -14,6 +14,7 @@ public class CartesianProductStream
 
     private final Pair<Register, Register> registers;
     private final int cellOffset;
+    private final Integer sumOfSequences;
 
     private int firstFactorOffset = 0;
     private int secondFactorOffset = 0;
@@ -26,6 +27,8 @@ public class CartesianProductStream
 
         this.registers = registers;
         this.cellOffset = cellOffset;
+        this.sumOfSequences = countSequences(registers.getFirst().toString())
+                + countSequences(registers.getSecond().toString());
     }
 
     @Override
@@ -58,7 +61,43 @@ public class CartesianProductStream
 
     @Override
     public int compareTo(Stream<Hypothesis> stream) {
+        // todo: cast here - seems LSP violation here, need to re-think how to organize the code
         CartesianProductStream aThat = (CartesianProductStream) stream;
-        return Integer.valueOf(cellOffset).compareTo(aThat.cellOffset);
+
+        // "Greater than" means all following rules:
+        // 1. this.cellOffset > that.cellOffset
+        // 2. this.registers.sumOfSequences < that.registers.sumOfSequences
+        int cellOffsetComparison = Integer.valueOf(cellOffset).compareTo(aThat.cellOffset);
+        return cellOffsetComparison == 0
+                ? -sumOfSequences.compareTo(aThat.sumOfSequences)
+                : cellOffsetComparison;
+    }
+
+    private int countSequences(String str) {
+        int count = 0;
+        count += countSubstring(str, "11");
+        count += countSubstring(str, "22");
+        count += countSubstring(str, "22");
+        count += countSubstring(str, "33");
+        count += countSubstring(str, "44");
+        count += countSubstring(str, "55");
+        count += countSubstring(str, "66");
+        count += countSubstring(str, "77");
+        count += countSubstring(str, "88");
+        count += countSubstring(str, "99");
+        count += countSubstring(str, "00");
+
+        count += Math.abs(countSubstring(str, "12"));
+        count += Math.abs(countSubstring(str, "13"));
+        count += Math.abs(countSubstring(str, "21"));
+        return count;
+    }
+
+    public int countSubstring(String str, String subStr) {
+        int count = 0;
+        for (int loc = str.indexOf(subStr); loc != -1; loc = str.indexOf(subStr, loc + 1)) {
+            count++;
+        }
+        return count;
     }
 }
