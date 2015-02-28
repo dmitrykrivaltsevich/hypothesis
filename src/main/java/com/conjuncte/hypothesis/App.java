@@ -12,7 +12,6 @@ import com.conjuncte.hypothesis.domain.Repository;
 import java.io.PrintStream;
 import java.math.BigInteger;
 
-// todo: sort streams by "randomness" of digits in hypothesises
 // todo: add auto storing
 // todo: make better package structure
 // todo: apply multi-threading
