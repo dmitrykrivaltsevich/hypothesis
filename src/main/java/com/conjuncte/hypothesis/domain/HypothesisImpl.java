@@ -23,6 +23,11 @@ public class HypothesisImpl
             public Register getSecond() {
                 return factorSecond;
             }
+
+            @Override
+            public String toString() {
+                return "(" + factorFirst.toString() + ", " + factorSecond.toString() + ")";
+            }
         };
         this.cellOffsetToCheck = cellOffsetToCheck;
     }
