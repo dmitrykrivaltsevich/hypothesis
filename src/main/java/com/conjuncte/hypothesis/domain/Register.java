@@ -1,5 +1,6 @@
 package com.conjuncte.hypothesis.domain;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 
 public interface Register {
@@ -11,11 +12,15 @@ public interface Register {
      * @param cellOffset offset of reigister's cell to which multiplication should be done (inclusive).
      * @return
      */
+    @Nonnull
     Register partialProduct(Register target, Integer cellOffset);
 
+    @Nonnull
     Cell getCell(Integer cellOffset);
 
+    @Nonnull
     Integer getCapacity();
 
+    @Nonnull
     Collection<Cell> getPossibleCellValues();
 }
