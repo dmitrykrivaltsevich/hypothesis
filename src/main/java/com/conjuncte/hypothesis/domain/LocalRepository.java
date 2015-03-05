@@ -14,7 +14,7 @@ public class LocalRepository
 
     private static final int INITIAL_QUEUE_CAPACITY = 100;
 
-    private Queue<Stream<Hypothesis>> hypothesises = new PriorityQueue<Stream<Hypothesis>>(
+    private Queue<Stream<Hypothesis>> hypothesises = new PriorityQueue<>(
             INITIAL_QUEUE_CAPACITY,
             new Comparator<Stream<Hypothesis>>() {
                 @Override
@@ -22,11 +22,18 @@ public class LocalRepository
                     return -streamOne.compareTo(streamTwo);
                 }
             }
-    ) {{
-        add(new InitialHypothesisStream());
-    }};
+    );
 
     private Stream<Hypothesis> currentStream;
+
+    public LocalRepository() {
+        this(new InitialHypothesisStream());
+    }
+
+    public LocalRepository(@Nonnull Stream<Hypothesis> hypothesisStream) {
+        assert hypothesisStream != null; // todo: create a factory
+        hypothesises.add(hypothesisStream);
+    }
 
     @Override
     public boolean isEmpty() {
