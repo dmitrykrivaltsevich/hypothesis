@@ -8,6 +8,7 @@ import com.conjuncte.hypothesis.domain.Hypothesis;
 import com.conjuncte.hypothesis.domain.LocalRepository;
 import com.conjuncte.hypothesis.domain.Register;
 import com.conjuncte.hypothesis.domain.Repository;
+import com.conjuncte.hypothesis.domain.SynchronizedRepository;
 import com.conjuncte.hypothesis.monitor.QueueStateMonitor;
 import com.conjuncte.hypothesis.monitor.StateMonitor;
 
@@ -19,7 +20,7 @@ import java.math.BigInteger;
 // todo: use arrays of cells inside register and immutable cell prototypes - will improve memory consumption
 public class App {
 
-    private Repository<Hypothesis> hypothesisRepository = new LocalRepository();
+    private Repository<Hypothesis> hypothesisRepository = new SynchronizedRepository<>(new LocalRepository());
     private Pair<Register, Register> latestFactors;
 
     public static void main(String[] args) {
