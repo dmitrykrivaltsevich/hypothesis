@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 // todo: display numbers of hypothesis
 // todo: display nice-looking progress bar for hypothesis [####        ]
 // todo: pass number to factor as parameter for program (remove hard code)
+// todo: do not pass System.out to QueueStateMonitor
 public class App {
 
     // todo: make it configurable, extract from the App
