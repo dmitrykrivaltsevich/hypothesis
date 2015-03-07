@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 
 // todo: add auto storing
 // todo: make better package structure
-// todo: apply multi-threading
 // todo: use arrays of cells inside register and immutable cell prototypes - will improve memory consumption
 // todo: sharing tasks between factor calculators (when one is done it can crack on into someone else hypot. repo)
 public class App {
@@ -31,8 +30,8 @@ public class App {
     private Pair<Register, Register> latestFactors;
 
     public static void main(String[] args) {
-//        final Register targetProduct = new FreeRadixRegister(new BigInteger("901746392047", 10).multiply(new BigInteger("873610947299", 10)).toString(), 10);
-        final Register targetProduct = new FreeRadixRegister(new BigInteger("12231257", 10).multiply(new BigInteger("12413887", 10)).toString(), 10);
+        final Register targetProduct = new FreeRadixRegister(new BigInteger("901746392047", 10).multiply(new BigInteger("873610947299", 10)).toString(), 10);
+//        final Register targetProduct = new FreeRadixRegister(new BigInteger("1182787", 10).multiply(new BigInteger("1571663", 10)).toString(), 10);
         System.out.println(String.format("Going to factor: %s (%d bits)",
                 targetProduct.toString(),
                 new BigInteger(targetProduct.toString()).bitLength()));
@@ -176,7 +175,7 @@ public class App {
         private Pair<Register, Register> checkAllHypothesises(
                 @Nonnull Repository<Hypothesis> hypothesisRepository,
                 @Nonnull Register targetProduct) {
-            while (!hypothesisRepository.isEmpty()) {
+            while (!hypothesisRepository.isEmpty() && !Thread.interrupted()) {
                 Hypothesis hypothesis = hypothesisRepository.get();
 
                 callback.onProgress(hypothesis.getFactors());
