@@ -55,7 +55,7 @@ public class FreeRadixRegister
     }
 
     @Override
-    public Register partialProduct(Register target, Integer cellOffset) {
+    public Register partialMultiply(Register target, Integer cellOffset) {
         // todo: dirty hack. don't want to implement partial product for now
         // todo: cast to FreeRadixRegister -- design issue in any case
         BigInteger product = karatsuba(number, ((FreeRadixRegister) target).number);

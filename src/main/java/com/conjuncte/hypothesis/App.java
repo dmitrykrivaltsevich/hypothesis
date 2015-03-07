@@ -175,7 +175,7 @@ public class App {
                 Register factorsSecond = factors.getSecond();
                 Integer cellOffsetToCheck = hypothesis.getCellOffsetToCheck();
 
-                Register partialProduct = factorsFirst.partialProduct(factorsSecond, cellOffsetToCheck);
+                Register partialProduct = factorsFirst.partialMultiply(factorsSecond, cellOffsetToCheck);
 
                 if (targetProduct.getCell(cellOffsetToCheck).equals(partialProduct.getCell(cellOffsetToCheck))) {
                     if (targetProduct.getCapacity().equals(partialProduct.getCapacity())

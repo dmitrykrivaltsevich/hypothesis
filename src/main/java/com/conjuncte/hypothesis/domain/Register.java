@@ -13,7 +13,7 @@ public interface Register {
      * @return
      */
     @Nonnull
-    Register partialProduct(Register target, Integer cellOffset);
+    Register partialMultiply(Register target, Integer cellOffset);
 
     @Nonnull
     Cell getCell(Integer cellOffset);
