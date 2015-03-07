@@ -38,7 +38,8 @@ public class App {
     private Pair<Register, Register> latestFactors;
 
     public static void main(String[] args) {
-        final Register targetProduct = new FreeRadixRegister(new BigInteger("901746392047", 10).multiply(new BigInteger("873610947299", 10)).toString(), 10);
+//        final Register targetProduct = new FreeRadixRegister(new BigInteger("901746392047", 10).multiply(new BigInteger("873610947299", 10)).toString(), 10);
+        final Register targetProduct = new FreeRadixRegister(new BigInteger("12231257", 10).multiply(new BigInteger ("12413887", 10)).toString(), 10);
 //        final Register targetProduct = new FreeRadixRegister(new BigInteger("1182787", 10).multiply(new BigInteger("1571663", 10)).toString(), 10);
         System.out.println(String.format("Going to factor: %s (%d bits)",
                 targetProduct.toString(),

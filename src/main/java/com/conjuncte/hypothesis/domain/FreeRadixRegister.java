@@ -25,9 +25,12 @@ public class FreeRadixRegister
     public Register partialMultiply(Register target, Integer cellOffset) {
         // todo: dirty hack. don't want to implement partial product for now
         // todo: cast to FreeRadixRegister -- design issue in any case
-        BigInteger product = karatsuba(
-                new BigInteger(number, radix),
-                new BigInteger(((FreeRadixRegister) target).number, radix));
+//        BigInteger product = karatsuba(
+//                new BigInteger(number, radix),
+//                new BigInteger(((FreeRadixRegister) target).number, radix));
+
+        BigInteger product = new BigInteger(number, radix)
+                .multiply(new BigInteger(((FreeRadixRegister) target).number, radix));
 
         return new FreeRadixRegister(
                 String.format("%1$" + number.length() + "s", product.toString()).replace(" ", ZERO),
