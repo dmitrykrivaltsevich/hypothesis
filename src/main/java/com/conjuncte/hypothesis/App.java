@@ -22,6 +22,13 @@ import java.util.concurrent.TimeUnit;
 // todo: make better package structure
 // todo: use arrays of cells inside register and immutable cell prototypes - will improve memory consumption
 // todo: sharing tasks between factor calculators (when one is done it can crack on into someone else hypot. repo)
+// todo: SRP check for all classes
+// todo: LSP check for all classes
+// todo: DRY check for all classes
+// todo: add a message if factors weren't found
+// todo: display numbers of hypothesis
+// todo: display nice-looking progress bar for hypothesis [####        ]
+// todo: pass number to factor as parameter for program (remove hard code)
 public class App {
 
     // todo: make it configurable, extract from the App
@@ -35,24 +42,6 @@ public class App {
         System.out.println(String.format("Going to factor: %s (%d bits)",
                 targetProduct.toString(),
                 new BigInteger(targetProduct.toString()).bitLength()));
-
-//        App application = new App();
-//        StateMonitor monitor = new QueueStateMonitor(application, 10, System.out).start();
-//
-//        Pair<Register, Register> factors = application.checkAllHypothesises(
-//                new SynchronizedRepository<>(new LocalRepository()),
-//                targetProduct);
-//
-//        if (factors != null) {
-//            System.out.println(String.format("Found factors for %s (%d bits):\n%s\n%s",
-//                    targetProduct,
-//                    new BigInteger(targetProduct.toString()).bitLength(),
-//                    factors.getFirst(),
-//                    factors.getSecond()));
-//        } else {
-//            System.out.println("Factors not found.");
-//        }
-//        monitor.stop();
 
         final App app = new App();
         StateMonitor monitor = new QueueStateMonitor(app, 10, System.out).start();
@@ -154,6 +143,7 @@ public class App {
                 @Nonnull Repository<Hypothesis> hypothesis,
                 @Nonnull Register targetProduct,
                 @Nonnull CalculationStateCallback callback) {
+            // todo: make a factory
             assert hypothesis != null;
             assert targetProduct != null;
             assert callback != null;
