@@ -1,10 +1,6 @@
 package com.conjuncte.hypothesis.container;
 
-import com.conjuncte.hypothesis.domain.Cell;
-import com.conjuncte.hypothesis.domain.FreeRadixRegister;
-import com.conjuncte.hypothesis.domain.Hypothesis;
-import com.conjuncte.hypothesis.domain.HypothesisImpl;
-import com.conjuncte.hypothesis.domain.Register;
+import com.conjuncte.hypothesis.domain.*;
 import com.google.common.collect.Iterators;
 
 import java.util.Collection;
@@ -91,6 +87,23 @@ public class CartesianProductStream
         count += Math.abs(countSubstring(str, "13"));
         count += Math.abs(countSubstring(str, "21"));
         return count;
+
+// todo: consider improvements
+//        Map<String, Integer> counts = new HashMap<>();
+//
+//        for(String num : str.split("[0-9]{2}")) {
+//            if (counts.get(num) == null) {
+//                counts.put(num, 1);
+//            }
+//            counts.put(num, (counts.get(num) + 1) * (counts.get(num)));
+//        }
+//
+//        int count = 0;
+//        for (Integer value : counts.values()) {
+//            count += value;
+//        }
+//
+//        return count;
     }
 
     public int countSubstring(String str, String subStr) {

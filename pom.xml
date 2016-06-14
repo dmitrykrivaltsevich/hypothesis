@@ -12,7 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.12</junit.version>
-        <guava.version>12.0</guava.version>
+        <guava.version>18.0</guava.version>
+        <jsr305.version>3.0.0</jsr305.version>
         <compiler.plugin>3.2</compiler.plugin>
         <java.version>1.7</java.version>
     </properties>
@@ -64,6 +65,12 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>${jsr305.version}</version>
         </dependency>
     </dependencies>
 </project>

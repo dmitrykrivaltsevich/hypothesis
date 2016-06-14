@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-// todo: currently not synchronized, add sync later. Perhaps, like a "wrapper" (new SyncRepo(new LocalRepo)).
+// todo: currently not synchronized, add sync later. Perhaps, as a "wrapper" (new SyncRepo(new LocalRepo)).
 public class LocalRepository
         implements Repository<Hypothesis> {
 
